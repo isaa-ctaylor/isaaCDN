@@ -83,8 +83,6 @@ async def upload(
     while (file_id := "".join(random.choices(CHARS, k=6))) in data["ids"]:
         file_id = "".join(random.choices(CHARS, k=6))
 
-    filename = f"{file_id}.{ext}"
-
     data["ids"][file_id] = user
     await write_data(data)
 
