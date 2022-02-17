@@ -1,4 +1,5 @@
 import asyncio
+from imghdr import what
 import json
 import re
 from io import BytesIO
@@ -59,7 +60,6 @@ async def index():
 
 @APP.post("/upload")
 async def upload(
-    filename: str = Form(...),
     file: UploadFile = File(...),
     Authorization: str = Header(None),
     content_length: Optional[str] = Header(None),
@@ -76,10 +76,16 @@ async def upload(
 
     if user != "isaac" and int(content_length) >= 101000000:
         raise HTTPException(413, "Request Entity Too Large")
+    
+    ext = what(file)
+    if not ext:
+        return HTTPException(411, "Invalid file format")
 
     random = SystemRandom()
     while (file_id := "".join(random.choices(CHARS, k=6))) in data["ids"]:
         file_id = "".join(random.choices(CHARS, k=6))
+
+    filename = f"{file_id}.{ext}"
 
     data["ids"][file_id] = user
     await write_data(data)
