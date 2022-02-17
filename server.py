@@ -76,8 +76,8 @@ async def upload(
 
     if user != "isaac" and int(content_length) >= 101000000:
         raise HTTPException(413, "Request Entity Too Large")
-    
-    ext = what(file)
+    print(file.filename)
+    ext = what(file.file)
     if not ext:
         return HTTPException(411, "Invalid file format")
 
