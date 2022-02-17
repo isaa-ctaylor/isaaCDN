@@ -76,10 +76,8 @@ async def upload(
 
     if user != "isaac" and int(content_length) >= 101000000:
         raise HTTPException(413, "Request Entity Too Large")
-    print(file.filename)
-    ext = what(file.file)
-    if not ext:
-        return HTTPException(411, "Invalid file format")
+    
+    filename = file.filename
 
     random = SystemRandom()
     while (file_id := "".join(random.choices(CHARS, k=6))) in data["ids"]:
