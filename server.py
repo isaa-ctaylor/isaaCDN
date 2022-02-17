@@ -98,7 +98,7 @@ async def upload(
             while chunk := await file.read(134217728):
                 await f.write(chunk)
 
-    return {"ext": ext, "url": f"https://localhost:8000/{file_id}"}
+    return {"ext": ext, "url": f"https://cdn.isaactaylor.xyz/{file_id}"}
 
 
 @APP.get("/{file:path}")
@@ -113,7 +113,7 @@ async def fetch_file(file: str):
         name = data["ids"][file_id]
         filename = listdir(f"./files/{name}/{file_id}")[0]
         return RedirectResponse(
-            f"https://localhost:8000/{file_id}/{filename}", 301
+            f"https://cdn.isaactaylor.xyz/{file_id}/{filename}", 301
         )
 
     if (match := FILE_REGEX.match(file)) is None:
