@@ -55,7 +55,7 @@ def remove_jpeg_exif(buffer: bytes) -> bytes:
 @APP.get("/", response_class=RedirectResponse)
 @APP.get("/upload", response_class=RedirectResponse)
 async def index():
-    return "https://www.isaactaylor.xyz"
+    return "https://isaactaylor.xyz"
 
 
 @APP.post("/upload")
