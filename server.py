@@ -74,7 +74,7 @@ async def upload(
 
     user = data["auth"][Authorization]
 
-    if user != "isaac" and int(content_length) >= 101000000:
+    if user != "isaac" and int(content_length) >= 999999999:
         raise HTTPException(413, "Request Entity Too Large")
     
     filename = file.filename
