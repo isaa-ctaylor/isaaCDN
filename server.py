@@ -88,13 +88,6 @@ async def upload(
 
     mkdir(f"./files/{user}/{file_id}")
 
-    async with aiofiles.open(f"./files/{user}/{file_id}/{filename}", "rb") as f:
-        if (ext := filename.split(".")[-1].lower()) in ("jpe", "jpeg", "jpg"):
-            image = await asyncio.get_running_loop().run_in_executor(
-                None,
-                remove_jpeg_exif,
-                await f.read(),
-            )
     async with aiofiles.open(f"./files/{user}/{file_id}/{filename}", "wb") as f:
         if (ext := filename.split(".")[-1].lower()) in ("jpe", "jpeg", "jpg"):
             await f.write(image)
